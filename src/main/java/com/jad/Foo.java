@@ -5,52 +5,49 @@ import java.util.List;
 
 public class Foo {
     private Bar bar;
-    private List<Baz> baz;
+    private List<Baz> bazs;
     private Qux qux;
+    private List<Grault> graults;
     private Corge corge;
-    private List<Grault> grault;
 
-
-    public Foo(Bar bar) {
+    public Foo(final Bar bar) {
         this.bar = bar;
-        this.baz = new ArrayList<>();
+        this.bazs = new ArrayList<>();
         this.qux = new Qux();
-        this.grault = new ArrayList<>();
-    }
-
-
-    public void addBaz(Baz baz) {
-        this.baz.add(baz);
-    }
-
-
-    public void addGrault() {
-        Grault grault = new Grault(this);
-        this.grault.add(grault);
-    }
-
-    public Bar getBar() {
-        return bar;
+        this.graults = new ArrayList<>();
     }
 
     public List<Baz> getBazs() {
-        return baz;
-    }
-
-    public Qux getQux() {
-        return qux;
+        return this.bazs;
     }
 
     public Corge getCorge() {
-        return corge;
+        return this.corge;
     }
 
-    public void setCorge(Corge corge) {
+    public void setCorge(final Corge corge) {
+        if (this.corge != null) this.corge.setFoo(null);
         this.corge = corge;
+        if (corge != null && corge.getFoo() != this) corge.setFoo(this);
     }
 
     public List<Grault> getGraults() {
-        return grault;
+        return this.graults;
+    }
+
+    public Qux getQux() {
+        return this.qux;
+    }
+
+    public Bar getBar() {
+        return this.bar;
+    }
+
+    public void addBaz(Baz baz) {
+        this.bazs.add(baz);
+    }
+
+    public void addGrault() {
+        this.graults.add(new Grault(this));
     }
 }
-
